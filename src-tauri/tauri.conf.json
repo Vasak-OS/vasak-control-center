@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "vapp",
+  "productName": "vasak-control-center",
   "version": "0.1.0",
-  "identifier": "ar.net.vasak.vapp",
+  "identifier": "ar.net.vasak.vasak-control-center",
   "build": {
     "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:1420",
@@ -12,11 +12,13 @@
   "app": {
     "windows": [
       {
-        "title": "vapp",
+        "title": "Vasak Control Center",
         "width": 800,
         "height": 600,
         "decorations": false,
-        "transparent": true
+        "transparent": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true
       }
     ],
     "security": {
