@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { invoke } from "@tauri-apps/api/core";
 
-const greetMsg = ref("");
-
-async function get_icon_path() {
-  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-  greetMsg.value = await invoke("get_icon_path", { name: "google-chrome" });
-}
-
 onMounted(() => {
-  get_icon_path();
-  console.info("greetMsg", greetMsg);
+  invoke('initialize_window')
+  console.info("greetMsg");
 });
 </script>
 
@@ -20,8 +13,6 @@ onMounted(() => {
     <h1>Welcome to Tauri + Vue</h1>
 
     <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
-
-    <p>{{ greetMsg }}</p>
   </main>
 </template>
 
