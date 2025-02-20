@@ -26,6 +26,8 @@ gtk = "0.18.1"
 base64 = "0.21.1"
 tauri-plugin-positioner = { version = "2", features = [] }
 alsa = "0.7.0"
+dbus = "0.9"
+once_cell = "1.8"
 
 [profile.dev]
 incremental = true # Compile your binary in smaller steps.

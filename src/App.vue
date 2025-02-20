@@ -2,6 +2,8 @@
 import { onMounted } from "vue";
 import { invoke } from "@tauri-apps/api/core";
 import VolumeControl from "./components/VolumeControl.vue";
+import NotificationCenter from "./components/NotificationCenter.vue";
+
 onMounted(() => {
   invoke('initialize_window')
 });
@@ -10,10 +12,9 @@ onMounted(() => {
 <template>
   <main class="bg-white/70 dark:bg-black/70 text-black dark:text-white h-screen w-screen rounded-xl flex flex-row flex-wrap justify-between">
     <div class="flex w-full justify-center items-start p-2">
-      <h1>Vasak Control Center</h1>
+      <NotificationCenter />
     </div>
     <div class="flex flex-wrap w-full justify-center items-end p-2">
-      <h1>Vasak Control Center</h1>
       <VolumeControl />
     </div>
   </main>
