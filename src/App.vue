@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { invoke } from "@tauri-apps/api/core";
-
+import VolumeControl from "./components/VolumeControl.vue";
 onMounted(() => {
   invoke('initialize_window')
-  console.info("greetMsg");
 });
 </script>
 
@@ -13,8 +12,9 @@ onMounted(() => {
     <div class="flex w-full justify-center items-start p-2">
       <h1>Vasak Control Center</h1>
     </div>
-    <div class="flex w-full justify-center items-end p-2">
+    <div class="flex flex-wrap w-full justify-center items-end p-2">
       <h1>Vasak Control Center</h1>
+      <VolumeControl />
     </div>
   </main>
 </template>
