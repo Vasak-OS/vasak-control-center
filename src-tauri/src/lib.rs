@@ -23,6 +23,8 @@ pub fn run() {
             commands::network::toggle_network,
             commands::bluetooth::get_bluetooth_state,
             commands::bluetooth::toggle_bluetooth,
+            commands::brightness::get_brightness,
+            commands::brightness::set_brightness,
             window::initialize_window,
         ])
         .run(tauri::generate_context!())
