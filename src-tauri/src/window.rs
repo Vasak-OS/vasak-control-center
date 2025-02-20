@@ -1,4 +1,4 @@
-use tauri::Window;
+use tauri::{Manager, Window};
 use tauri_plugin_positioner::{WindowExt, Position};
 
 #[tauri::command]
@@ -21,11 +21,26 @@ pub async fn initialize_window(window: Window) {
     // Ajustamos la posición Y para centrar verticalmente
     let y_position = (monitor_size.height - (monitor_size.height - 100)) / 2;
     window.set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-        x: (monitor_size.width - 300) as i32, // Convertimos a i32
+        x: (monitor_size.width - 300) as i32,
         y: y_position as i32,
     }))
     .unwrap();
 
     // Configuramos que la ventana no sea redimensionable por el usuario
     window.set_resizable(false).unwrap();
+
+    // Crear un clon de la ventana para el closure
+    let window_clone = window.clone();
+    
+    // Agregar evento para cerrar cuando pierde el foco
+    window.on_window_event(move |event| {
+        if let tauri::WindowEvent::Focused(focused) = event {
+            if !focused {
+                // Si la ventana pierde el foco, la ocultamos
+                window_clone.close().unwrap_or_else(|e| {
+                    eprintln!("Error closing window: {}", e);
+                });
+            }
+        }
+    });
 } 
