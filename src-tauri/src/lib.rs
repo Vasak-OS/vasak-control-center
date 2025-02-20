@@ -21,6 +21,8 @@ pub fn run() {
             commands::notifications::mark_notification_as_seen,
             commands::network::get_network_state,
             commands::network::toggle_network,
+            commands::bluetooth::get_bluetooth_state,
+            commands::bluetooth::toggle_bluetooth,
             window::initialize_window,
         ])
         .run(tauri::generate_context!())
