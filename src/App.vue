@@ -3,6 +3,7 @@ import { onMounted } from "vue";
 import { invoke } from "@tauri-apps/api/core";
 import VolumeControl from "./components/VolumeControl.vue";
 import NotificationCenter from "./components/NotificationCenter.vue";
+import NetworkControl from "./components/NetworkControl.vue";
 
 onMounted(() => {
   invoke('initialize_window')
@@ -14,7 +15,8 @@ onMounted(() => {
     <div class="flex w-full justify-center items-start p-2">
       <NotificationCenter />
     </div>
-    <div class="flex flex-wrap w-full justify-center items-end p-2">
+    <div class="flex flex-wrap w-full justify-around items-end gap-2 p-2">
+      <NetworkControl />
       <VolumeControl />
     </div>
   </main>

@@ -19,6 +19,8 @@ pub fn run() {
             commands::audio::toggle_mute,
             commands::notifications::get_unread_notifications,
             commands::notifications::mark_notification_as_seen,
+            commands::network::get_network_state,
+            commands::network::toggle_network,
             window::initialize_window,
         ])
         .run(tauri::generate_context!())

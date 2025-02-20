@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center gap-2 justify-between w-full h-auto p-4">
+  <div class="bg-white/50 dark:bg-black/50 rounded-xl flex flex-row items-center gap-2 justify-between w-full h-auto p-4">
     <button @click="toggleMute" class="w-8 h-8 flex items-center justify-center">
       <img 
         :src="currentIcon" 
