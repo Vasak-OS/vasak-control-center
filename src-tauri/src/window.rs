@@ -37,9 +37,9 @@ pub async fn initialize_window(window: Window) {
         if let tauri::WindowEvent::Focused(focused) = event {
             if !focused {
                 // Si la ventana pierde el foco, la ocultamos
-                // window_clone.close().unwrap_or_else(|e| {
-                //     eprintln!("Error closing window: {}", e);
-                // });
+                window_clone.close().unwrap_or_else(|e| {
+                    eprintln!("Error closing window: {}", e);
+                });
             }
         }
     });
