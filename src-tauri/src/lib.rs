@@ -26,6 +26,7 @@ pub fn run() {
             commands::brightness::get_brightness,
             commands::brightness::set_brightness,
             commands::user::get_user_info,
+            commands::theme::toggle_system_theme,
             window::initialize_window,
         ])
         .run(tauri::generate_context!())
