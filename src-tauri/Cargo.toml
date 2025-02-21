@@ -1,5 +1,5 @@
 [package]
-name = "vapp"
+name = "vasak-control-center"
 version = "0.1.0"
 description = "A Vasak Application (template)"
 authors = ["Vasak Group", "Joaquin (Pato) Decima"]
