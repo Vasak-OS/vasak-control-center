@@ -6,6 +6,7 @@ import BrightnessControl from "@/components/BrightnessControl.vue";
 import NotificationCenter from "@/components/NotificationCenter.vue";
 import NetworkControl from "@/components/NetworkControl.vue";
 import BluetoothControl from "@/components/BluetoothControl.vue";
+import UserProfile from "@/components/UserProfile.vue";
 
 onMounted(() => {
   invoke('initialize_window')
@@ -14,7 +15,8 @@ onMounted(() => {
 
 <template>
   <main class="bg-white/70 dark:bg-black/70 text-black dark:text-white h-screen w-screen rounded-xl flex flex-row flex-wrap justify-between">
-    <div class="flex w-full justify-center items-start p-2">
+    <div class="flex flex-col w-full gap-2 p-2">
+      <UserProfile />
       <NotificationCenter />
     </div>
     <div class="flex flex-wrap w-full justify-around items-end gap-2 p-2">
