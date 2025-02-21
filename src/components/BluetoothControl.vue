@@ -8,7 +8,7 @@
     <img 
       :src="bluetoothIcon" 
       :alt="bluetoothAlt"
-      class="p-auto w-[50px] h-[50px]"
+      class="m-auto w-[50px] h-[50px]"
     />
   </button>
 </template>
