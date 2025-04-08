@@ -13,7 +13,7 @@
     "windows": [
       {
         "title": "Vasak Control Center",
-        "width": 800,
+        "width": 300,
         "height": 600,
         "decorations": false,
         "transparent": true,

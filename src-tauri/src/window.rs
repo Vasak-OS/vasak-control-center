@@ -1,30 +1,30 @@
-use tauri::{Manager, Window};
+use tauri::Window;
 use tauri_plugin_positioner::{WindowExt, Position};
 
 #[tauri::command]
 pub async fn initialize_window(window: Window) {
     let monitor = window.current_monitor().unwrap().unwrap();
     let monitor_size = monitor.size();
+
+    // Set the window size
+    let window_width = 300;
+    let window_height = monitor_size.height - 100;
     
     // Configuramos el tamaño inicial de la ventana
     window.set_size(tauri::Size::Physical(tauri::PhysicalSize {
-        width: 300,  // Ancho del panel lateral
-        height: monitor_size.height - 100, // Alto de la pantalla menos 100px
+        width: window_width,
+        height: window_height,
     }))
     .unwrap();
 
-    // Posicionamos la ventana en el lado derecho
+    // Calculate the manual position
+    let x = monitor_size.width;
+    let y = (monitor_size.height - window_height) / 2;
+
+    // Set the window position
     window
-        .move_window(Position::RightCenter)
+        .set_position(tauri::Position::Physical(tauri::PhysicalPosition { x: x as i32, y: y as i32 }))
         .unwrap();
-
-    // Ajustamos la posición Y para centrar verticalmente
-    let y_position = (monitor_size.height - (monitor_size.height - 100)) / 2;
-    window.set_position(tauri::Position::Physical(tauri::PhysicalPosition {
-        x: (monitor_size.width - 300) as i32,
-        y: y_position as i32,
-    }))
-    .unwrap();
 
     // Configuramos que la ventana no sea redimensionable por el usuario
     window.set_resizable(false).unwrap();
