@@ -15,6 +15,7 @@
     "core:window:allow-set-resizable",
     "positioner:allow-move-window",
     "positioner:allow-set-tray-icon-state",
-    "vicons:default"
+    "vicons:default",
+    "user-data:default"
   ]
 }

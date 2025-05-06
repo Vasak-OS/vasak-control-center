@@ -29,6 +29,7 @@ alsa = "0.7.0"
 dbus = "0.9"
 once_cell = "1.8"
 tauri-plugin-vicons = { git = "https://github.com/Vasak-OS/tauri-plugin-vicons", branch = "v2" }
+tauri-plugin-user-data = { git = "https://github.com/Vasak-OS/tauri-plugin-user-data", branch = "v2" }
 
 [profile.dev]
 incremental = true # Compile your binary in smaller steps.

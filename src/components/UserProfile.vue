@@ -20,13 +20,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { invoke } from '@tauri-apps/api/core';
-
-interface UserInfo {
-  username: string;
-  full_name: string;
-  avatar_data: string;
-}
+import { getUserData, type UserInfo } from '@vasakgroup/plugin-user-data';
 
 const userInfo = ref<UserInfo>({
   username: '',
@@ -52,8 +46,8 @@ const updateDateTime = () => {
 
 const getUserInfo = async () => {
   try {
-    const info = await invoke<UserInfo>('get_user_info');
-    userInfo.value = info;
+    const info = await getUserData();
+    userInfo.value = info as UserInfo;
   } catch (error) {
     console.error('Error getting user info:', error);
   }

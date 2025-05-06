@@ -3402,6 +3402,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-plugin-user-data"
+version = "0.1.0"
+source = "git+https://github.com/Vasak-OS/tauri-plugin-user-data?branch=v2#fa6d8c21d37f7fe447e4478f685092b2c787b93e"
+dependencies = [
+ "base64 0.21.7",
+ "serde",
+ "tauri",
+ "tauri-plugin",
+ "thiserror 2.0.12",
+]
+
+[[package]]
 name = "tauri-plugin-vicons"
 version = "2.0.0"
 source = "git+https://github.com/Vasak-OS/tauri-plugin-vicons?branch=v2#91c5730e14e961e1fc3be22fac61d979c3f9b677"
@@ -3907,6 +3919,7 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-positioner",
  "tauri-plugin-shell",
+ "tauri-plugin-user-data",
  "tauri-plugin-vicons",
 ]
 

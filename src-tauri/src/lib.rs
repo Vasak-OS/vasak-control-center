@@ -2,6 +2,7 @@ pub mod commands;
 mod window;
 
 use tauri_plugin_vicons;
+use tauri_plugin_user_data;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -14,6 +15,7 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_positioner::init())
         .plugin(tauri_plugin_vicons::init())
+        .plugin(tauri_plugin_user_data::init())
         .invoke_handler(tauri::generate_handler![
             commands::audio::get_volume,
             commands::audio::set_volume,
@@ -26,7 +28,6 @@ pub fn run() {
             commands::bluetooth::toggle_bluetooth,
             commands::brightness::get_brightness,
             commands::brightness::set_brightness,
-            commands::user::get_user_info,
             commands::theme::toggle_system_theme,
             window::initialize_window,
         ])
