@@ -1,28 +1,20 @@
 <template>
-  <div class="bg-white/50 dark:bg-black/50 rounded-xl flex flex-row items-center gap-2 justify-between w-full h-auto p-4">
+  <div
+    class="bg-white/50 dark:bg-black/50 rounded-xl flex flex-row items-center gap-2 justify-between w-full h-auto p-4">
     <button @click="toggleMute" class="w-8 h-8 flex items-center justify-center">
-      <img 
-        :src="currentIcon" 
-        :alt="volumeInfo.is_muted ? 'Unmute' : 'Mute'"
-        class="w-6 h-6"
-      />
+      <img :src="currentIcon" :alt="volumeInfo.is_muted ? 'Unmute' : 'Mute'" class="w-6 h-6" />
     </button>
-    <input 
-      type="range" 
-      :min="volumeInfo.min" 
-      :max="volumeInfo.max" 
-      v-model="currentVolume"
-      @input="updateVolume"
-      class="flex-1"
-    />
+    <input type="range" :min="volumeInfo.min" :max="volumeInfo.max" v-model="currentVolume" @input="updateVolume"
+      class="flex-1" />
     <span class="w-12 text-right">{{ volumePercentage }}%</span>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
-import { invoke } from '@tauri-apps/api/core'
-import { getIcon, getImageType } from '@/common/icons'
+import { ref, computed, onMounted, watch } from 'vue';
+import { invoke } from '@tauri-apps/api/core';
+import { getIconSource } from '@vasakgroup/plugin-vicons';
+
 const volumeInfo = ref({
   current: 0,
   min: 0,
@@ -36,7 +28,7 @@ const currentIcon = ref('')
 async function updateIcon() {
   const getIconName = () => {
     if (volumeInfo.value.is_muted) return 'audio-volume-muted-symbolic'
-    
+
     const percentage = volumePercentage.value
     if (percentage <= 0) return 'audio-volume-muted-symbolic'
     if (percentage <= 33) return 'audio-volume-low-symbolic'
@@ -45,8 +37,7 @@ async function updateIcon() {
   }
 
   try {
-    const base64Icon = await getIcon(getIconName())
-    currentIcon.value = `data:${getImageType(base64Icon)};base64,${base64Icon}`
+    currentIcon.value = await getIconSource(getIconName());
   } catch (error) {
     console.error('Error loading icon:', error)
   }
@@ -74,8 +65,8 @@ async function getVolumeInfo() {
 
 async function updateVolume() {
   try {
-    await invoke('set_volume', { 
-      volume: Number(currentVolume.value) 
+    await invoke('set_volume', {
+      volume: Number(currentVolume.value)
     })
   } catch (error) {
     console.error('Error setting volume:', error)
@@ -96,6 +87,4 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped>
-
-</style> 
+<style scoped></style>

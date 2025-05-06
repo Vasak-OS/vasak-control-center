@@ -35,8 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getIcon, getImageType } from '@/common/icons'
+import { ref, onMounted } from 'vue';
+import { getIconSource } from '@vasakgroup/plugin-vicons';
 
 const props = defineProps<{
   notification: {
@@ -64,10 +64,8 @@ function formatTime(timestamp: number): string {
 
 onMounted(async () => {
   try {
-    const appIcon = await getIcon(props.notification.app_icon)
-    iconSrc.value = `data:${getImageType(appIcon)};base64,${appIcon}`
-    const closeIcon = await getIcon('window-close-symbolic')
-    closeIconSrc.value = `data:${getImageType(closeIcon)};base64,${closeIcon}`
+    iconSrc.value = await getIconSource(props.notification.app_icon);
+    closeIconSrc.value = await getIconSource('window-close-symbolic');
   } catch (error) {
     console.error('Error loading icons:', error)
   }

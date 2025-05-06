@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { invoke } from '@tauri-apps/api/core';
-import { getIcon, getImageType } from '@/common/icons';
+import { getIconSource } from '@vasakgroup/plugin-vicons';
 
 interface NetworkState {
   connected: boolean;
@@ -45,8 +45,7 @@ const getNetworkIcon = async () => {
           : 'network-offline-symbolic'
       : 'network-offline-symbolic';
     
-    const icon = await getIcon(iconName);
-    networkIcon.value = `data:${getImageType(icon)};base64,${icon}`;
+    networkIcon.value = await getIconSource(iconName);
   } catch (error) {
     console.error('Error loading network icon:', error);
   }

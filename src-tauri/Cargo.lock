@@ -3402,6 +3402,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-plugin-vicons"
+version = "2.0.0"
+source = "git+https://github.com/Vasak-OS/tauri-plugin-vicons?branch=v2#91c5730e14e961e1fc3be22fac61d979c3f9b677"
+dependencies = [
+ "base64 0.21.7",
+ "gtk",
+ "serde",
+ "tauri",
+ "tauri-plugin",
+ "thiserror 2.0.12",
+]
+
+[[package]]
 name = "tauri-runtime"
 version = "2.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3894,6 +3907,7 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-positioner",
  "tauri-plugin-shell",
+ "tauri-plugin-vicons",
 ]
 
 [[package]]

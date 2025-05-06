@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { invoke } from '@tauri-apps/api/core';
-import { getIcon, getImageType } from '@/common/icons';
+import { getIconSource } from '@vasakgroup/plugin-vicons';
 
 interface BluetoothState {
   enabled: boolean;
@@ -39,8 +39,7 @@ const getBluetoothIcon = async () => {
         : 'bluetooth-symbolic'
       : 'bluetooth-disabled-symbolic';
     
-    const icon = await getIcon(iconName);
-    bluetoothIcon.value = `data:${getImageType(icon)};base64,${icon}`;
+    bluetoothIcon.value = await getIconSource(iconName);
   } catch (error) {
     console.error('Error loading bluetooth icon:', error);
   }

@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { invoke } from '@tauri-apps/api/core';
-import { getIcon, getImageType } from '@/common/icons';
+import { getIconSource } from '@vasakgroup/plugin-vicons';
 
 interface BrightnessInfo {
   current: number;
@@ -46,8 +46,7 @@ async function updateIcon() {
       brightnessPercentage.value > 33 ? 'display-brightness-medium-symbolic' :
       'display-brightness-low-symbolic';
 
-    const icon = await getIcon(iconName);
-    currentIcon.value = `data:${getImageType(icon)};base64,${icon}`;
+    currentIcon.value = await getIconSource(iconName);;
   } catch (error) {
     console.error('Error loading brightness icon:', error);
   }
