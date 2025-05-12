@@ -1,8 +1,25 @@
 pub mod commands;
-mod window;
 
-use tauri_plugin_vicons;
+use gtk::prelude::*;
+use tauri::Manager;
+use tauri_plugin_positioner::{Position, WindowExt};
+use tauri_plugin_shell;
 use tauri_plugin_user_data;
+use tauri_plugin_vicons;
+
+fn setup_main_window(window: &tauri::WebviewWindow) -> Result<(), Box<dyn std::error::Error>> {
+    let _ = window.move_window(Position::TopRight);
+    let gtk_window = window.gtk_window()?;
+
+    gtk_window.set_resizable(false);
+    gtk_window.set_type_hint(gtk::gdk::WindowTypeHint::Utility);
+    gtk_window.set_urgency_hint(true);
+    gtk_window.set_skip_taskbar_hint(true);
+    gtk_window.set_skip_pager_hint(true);
+    gtk_window.stick();
+
+    Ok(())
+}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -16,6 +33,11 @@ pub fn run() {
         .plugin(tauri_plugin_positioner::init())
         .plugin(tauri_plugin_vicons::init())
         .plugin(tauri_plugin_user_data::init())
+        .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+            if let Some(window) = app.get_webview_window("main") {
+                let _ = window.set_focus();
+            }
+        }))
         .invoke_handler(tauri::generate_handler![
             commands::audio::get_volume,
             commands::audio::set_volume,
@@ -28,9 +50,17 @@ pub fn run() {
             commands::bluetooth::toggle_bluetooth,
             commands::brightness::get_brightness,
             commands::brightness::set_brightness,
-            commands::theme::toggle_system_theme,
-            window::initialize_window,
+            commands::theme::toggle_system_theme
         ])
+        .setup(move |app| {
+            let window = app
+                .get_webview_window("main")
+                .expect("main window not found");
+
+            setup_main_window(&window)?;
+
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
