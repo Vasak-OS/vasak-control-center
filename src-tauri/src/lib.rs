@@ -59,6 +59,21 @@ pub fn run() {
 
             setup_main_window(&window)?;
 
+            // Crear un clon de la ventana para el closure
+            let window_clone = window.clone();
+
+            // Agregar evento para cerrar cuando pierde el foco
+            window.on_window_event(move |event| {
+                if let tauri::WindowEvent::Focused(focused) = event {
+                    if !focused {
+                        // Si la ventana pierde el foco, la ocultamos
+                        window_clone.close().unwrap_or_else(|e| {
+                            eprintln!("Error closing window: {}", e);
+                        });
+                    }
+                }
+            });
+
             Ok(())
         })
         .run(tauri::generate_context!())
