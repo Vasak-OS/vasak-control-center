@@ -1,14 +1,14 @@
 use dbus::{
-    blocking::Connection,
-    message::{MatchRule, Message},
     arg::ReadAll,
+    blocking::Connection,
     channel::MatchingReceiver,
+    message::{MatchRule, Message},
 };
-use serde::Serialize;
-use std::time::{SystemTime, UNIX_EPOCH};
-use std::sync::Mutex;
 use once_cell::sync::Lazy;
+use serde::Serialize;
+use std::sync::Mutex;
 use std::thread;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 static NOTIFICATIONS: Lazy<Mutex<Vec<Notification>>> = Lazy::new(|| Mutex::new(Vec::new()));
 const MAX_NOTIFICATIONS: usize = 5;
@@ -44,12 +44,12 @@ fn add_notification(
     body: String,
 ) -> Result<(), String> {
     let mut notifications = NOTIFICATIONS.lock().map_err(|e| e.to_string())?;
-    
+
     let timestamp = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()
         .as_secs();
-    
+
     let notification = Notification {
         id: timestamp as u32,
         app_name,
@@ -69,7 +69,6 @@ fn add_notification(
 }
 
 pub fn initialize_notifications() -> Result<(), String> {
-
     // Iniciar el hilo de escucha
     thread::spawn(|| {
         if let Err(e) = listen_for_notifications() {
@@ -82,16 +81,16 @@ pub fn initialize_notifications() -> Result<(), String> {
 
 fn listen_for_notifications() -> Result<(), String> {
     let conn = Connection::new_session().map_err(|e| e.to_string())?;
-    
+
     let rule = MatchRule::new()
         .with_interface("org.freedesktop.Notifications")
         .with_member("Notify");
-    
+
     conn.start_receive(
         rule,
         Box::new(move |msg, _| {
             let mut iter = msg.iter_init();
-            
+
             if let (Ok(app_name), Ok(id), Ok(app_icon), Ok(summary), Ok(body)) = (
                 iter.read::<&str>(),
                 iter.read::<u32>(),
@@ -117,4 +116,4 @@ fn listen_for_notifications() -> Result<(), String> {
         conn.process(std::time::Duration::from_millis(1000))
             .map_err(|e| e.to_string())?;
     }
-} 
+}

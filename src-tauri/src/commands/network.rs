@@ -32,7 +32,7 @@ impl Default for NetworkState {
 pub fn get_network_state() -> Result<NetworkState, String> {
     // Primero verificamos si la red está habilitada
     let enabled = is_network_enabled()?;
-    
+
     if !enabled {
         return Ok(NetworkState {
             enabled: false,
@@ -53,8 +53,8 @@ pub fn get_network_state() -> Result<NetworkState, String> {
         ));
     }
 
-    let status = from_utf8(&output.stdout)
-        .map_err(|e| format!("Invalid UTF-8 in nmcli output: {}", e))?;
+    let status =
+        from_utf8(&output.stdout).map_err(|e| format!("Invalid UTF-8 in nmcli output: {}", e))?;
 
     let mut state = NetworkState {
         enabled: true,
@@ -107,7 +107,7 @@ fn is_network_enabled() -> Result<bool, String> {
 #[tauri::command]
 pub fn toggle_network(enable: bool) -> Result<(), String> {
     let action = if enable { "on" } else { "off" };
-    
+
     let output = Command::new("nmcli")
         .args(["networking", action])
         .output()
@@ -121,4 +121,4 @@ pub fn toggle_network(enable: bool) -> Result<(), String> {
     }
 
     Ok(())
-} 
+}

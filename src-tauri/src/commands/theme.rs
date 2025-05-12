@@ -14,18 +14,33 @@ pub fn toggle_system_theme() -> Result<(), String> {
     if current_scheme == "'prefer-light'" {
         // Cambiar a modo oscuro
         Command::new("gsettings")
-            .args(&["set", "org.gnome.desktop.interface", "color-scheme", "prefer-dark"])
+            .args(&[
+                "set",
+                "org.gnome.desktop.interface",
+                "color-scheme",
+                "prefer-dark",
+            ])
             .output()
             .map_err(|e| format!("Error setting color scheme to dark: {}", e))?;
 
         Command::new("gsettings")
-            .args(&["set", "org.gnome.desktop.interface", "gtk-theme", "Adwaita-dark"])
+            .args(&[
+                "set",
+                "org.gnome.desktop.interface",
+                "gtk-theme",
+                "Adwaita-dark",
+            ])
             .output()
             .map_err(|e| format!("Error setting GTK theme to dark: {}", e))?;
     } else {
         // Cambiar a modo claro
         Command::new("gsettings")
-            .args(&["set", "org.gnome.desktop.interface", "color-scheme", "prefer-light"])
+            .args(&[
+                "set",
+                "org.gnome.desktop.interface",
+                "color-scheme",
+                "prefer-light",
+            ])
             .output()
             .map_err(|e| format!("Error setting color scheme to light: {}", e))?;
 
@@ -36,4 +51,4 @@ pub fn toggle_system_theme() -> Result<(), String> {
     }
 
     Ok(())
-} 
+}

@@ -21,7 +21,7 @@ impl Default for BluetoothState {
 pub fn get_bluetooth_state() -> Result<BluetoothState, String> {
     // Verificar si bluetooth está habilitado
     let enabled = is_bluetooth_enabled()?;
-    
+
     if !enabled {
         return Ok(BluetoothState::default());
     }
@@ -71,8 +71,8 @@ fn is_bluetooth_enabled() -> Result<bool, String> {
         ));
     }
 
-    let status = from_utf8(&output.stdout)
-        .map_err(|e| format!("Invalid UTF-8 in output: {}", e))?;
+    let status =
+        from_utf8(&output.stdout).map_err(|e| format!("Invalid UTF-8 in output: {}", e))?;
 
     Ok(status.contains("Powered: yes"))
 }
@@ -80,7 +80,7 @@ fn is_bluetooth_enabled() -> Result<bool, String> {
 #[tauri::command]
 pub fn toggle_bluetooth(enable: bool) -> Result<(), String> {
     let action = if enable { "on" } else { "off" };
-    
+
     let output = Command::new("bluetoothctl")
         .args(["power", action])
         .output()
@@ -94,4 +94,4 @@ pub fn toggle_bluetooth(enable: bool) -> Result<(), String> {
     }
 
     Ok(())
-} 
+}

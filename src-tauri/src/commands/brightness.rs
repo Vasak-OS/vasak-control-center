@@ -24,8 +24,8 @@ pub fn get_brightness() -> Result<BrightnessInfo, String> {
         ));
     }
 
-    let output_str = from_utf8(&output.stdout)
-        .map_err(|e| format!("Invalid UTF-8 in output: {}", e))?;
+    let output_str =
+        from_utf8(&output.stdout).map_err(|e| format!("Invalid UTF-8 in output: {}", e))?;
 
     // Buscar la línea que contiene "Brightness:"
     let current_brightness = output_str
@@ -56,8 +56,8 @@ pub fn set_brightness(brightness: u32) -> Result<(), String> {
         .output()
         .map_err(|e| format!("Error getting monitors: {}", e))?;
 
-    let monitors_str = from_utf8(&output.stdout)
-        .map_err(|e| format!("Invalid UTF-8 in output: {}", e))?;
+    let monitors_str =
+        from_utf8(&output.stdout).map_err(|e| format!("Invalid UTF-8 in output: {}", e))?;
 
     // Extraer los nombres de los monitores
     let monitors: Vec<&str> = monitors_str
@@ -83,4 +83,4 @@ pub fn set_brightness(brightness: u32) -> Result<(), String> {
     }
 
     Ok(())
-} 
+}
