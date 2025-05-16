@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { invoke } from "@tauri-apps/api/core";
 import VolumeControl from "@/components/VolumeControl.vue";
 import BrightnessControl from "@/components/BrightnessControl.vue";
 import NotificationCenter from "@/components/NotificationCenter.vue";
@@ -9,9 +7,6 @@ import BluetoothControl from "@/components/BluetoothControl.vue";
 import UserProfile from "@/components/UserProfile.vue";
 import ThemeToggle from "@/components/ThemeToggle.vue";
 
-onMounted(() => {
-  invoke('initialize_window')
-});
 </script>
 
 <template>
