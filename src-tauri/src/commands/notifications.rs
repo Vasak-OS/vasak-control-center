@@ -1,8 +1,7 @@
 use dbus::{
-    arg::ReadAll,
     blocking::Connection,
     channel::MatchingReceiver,
-    message::{MatchRule, Message},
+    message::MatchRule,
 };
 use once_cell::sync::Lazy;
 use serde::Serialize;
@@ -91,7 +90,7 @@ fn listen_for_notifications() -> Result<(), String> {
         Box::new(move |msg, _| {
             let mut iter = msg.iter_init();
 
-            if let (Ok(app_name), Ok(id), Ok(app_icon), Ok(summary), Ok(body)) = (
+            if let (Ok(app_name), Ok(_id), Ok(app_icon), Ok(summary), Ok(body)) = (
                 iter.read::<&str>(),
                 iter.read::<u32>(),
                 iter.read::<&str>(),
