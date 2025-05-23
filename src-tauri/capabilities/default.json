@@ -16,6 +16,8 @@
     "positioner:allow-move-window",
     "positioner:allow-set-tray-icon-state",
     "vicons:default",
-    "user-data:default"
+    "user-data:default",
+    "network-manager:allow-get-network-state",
+    "network-manager:allow-toggle-network-state"
   ]
 }
