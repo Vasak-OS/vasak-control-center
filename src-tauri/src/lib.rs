@@ -46,7 +46,6 @@ pub fn run() {
             commands::audio::toggle_mute,
             commands::notifications::get_unread_notifications,
             commands::notifications::mark_notification_as_seen,
-            commands::network::toggle_network,
             commands::bluetooth::get_bluetooth_state,
             commands::bluetooth::toggle_bluetooth,
             commands::brightness::get_brightness,
