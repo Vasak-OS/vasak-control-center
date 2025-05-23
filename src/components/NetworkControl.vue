@@ -70,7 +70,6 @@ onMounted(async () => {
     console.log('Network changed', event.payload);
     networkState.value = event.payload;
     networkIconSrc.value = await getIconSource(event.payload.icon);
-    await getCurrentNetwork();
   });
 });
 
