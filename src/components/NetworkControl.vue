@@ -44,7 +44,6 @@ const toggleCurrentNetwork = async () => {
   isLoading.value = true;
   try {
     await toggleNetwork(!networkState.value.is_connected);
-    await getCurrentNetwork();
   } catch (error) {
     console.error('Error toggling network:', error);
   } finally {
