@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import { listen } from '@tauri-apps/api/event';
 
 import { setWindowPorperties } from "@/commons/window";
 import VolumeControl from "@/components/VolumeControl.vue";
@@ -10,11 +11,14 @@ import BluetoothControl from "@/components/BluetoothControl.vue";
 import UserProfile from "@/components/UserProfile.vue";
 import ThemeToggle from "@/components/ThemeToggle.vue";
 
+let ulisten: Function | null = null;
 
 
-
-onMounted(() => {
+onMounted(async() => {
   setWindowPorperties();
+  ulisten = await listen('config-changed', async (event) => {
+    console.log('Config changed', event.payload);
+  });
 });
 </script>
 

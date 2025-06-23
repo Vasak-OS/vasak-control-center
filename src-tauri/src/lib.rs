@@ -3,6 +3,7 @@ pub mod commands;
 use gtk::prelude::*;
 use tauri::Manager;
 use tauri_plugin_network_manager;
+use tauri_plugin_config_manager;
 use tauri_plugin_positioner::{Position, WindowExt};
 use tauri_plugin_shell;
 use tauri_plugin_user_data;
@@ -35,6 +36,7 @@ pub fn run() {
         .plugin(tauri_plugin_vicons::init())
         .plugin(tauri_plugin_user_data::init())
         .plugin(tauri_plugin_network_manager::init())
+        .plugin(tauri_plugin_config_manager::init())
         .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
             if let Some(window) = app.get_webview_window("main") {
                 let _ = window.set_focus();
