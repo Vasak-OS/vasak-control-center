@@ -8,6 +8,7 @@ use tauri_plugin_positioner::{Position, WindowExt};
 use tauri_plugin_shell;
 use tauri_plugin_user_data;
 use tauri_plugin_vicons;
+use tauri_plugin_bluetooth_manager;
 
 fn setup_main_window(window: &tauri::WebviewWindow) -> Result<(), Box<dyn std::error::Error>> {
     let _ = window.move_window(Position::TopRight);
@@ -37,6 +38,7 @@ pub fn run() {
         .plugin(tauri_plugin_user_data::init())
         .plugin(tauri_plugin_network_manager::init())
         .plugin(tauri_plugin_config_manager::init())
+        .plugin(tauri_plugin_bluetooth_manager::init())
         .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
             if let Some(window) = app.get_webview_window("main") {
                 let _ = window.set_focus();
