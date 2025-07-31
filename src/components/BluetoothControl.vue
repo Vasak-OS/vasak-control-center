@@ -1,14 +1,47 @@
 <template>
   <button
     @click="toggleBluetooth"
-    class="p-2 rounded-xl bg-white/50 dark:bg-black/50 hover:bg-white/70 dark:hover:bg-black/70 transition-colors h-[70px] w-[70px]"
-    :class="{ 'opacity-50': !bluetoothState.enabled }"
+    class="p-2 rounded-xl bg-white/50 dark:bg-black/50 hover:bg-white/70 dark:hover:bg-black/70 transition-all duration-300 h-[70px] w-[70px] group relative overflow-hidden hover:scale-105 hover:shadow-lg active:scale-95"
+    :class="{ 
+      'animate-pulse': isLoading,
+      'ring-2 ring-blue-400/50': bluetoothState.enabled,
+      'opacity-60': !bluetoothState.enabled 
+    }"
     :disabled="isLoading"
   >
+    <!-- Background glow effect -->
+    <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    
+    <!-- Status indicator -->
+    <div class="absolute top-1 right-1 w-3 h-3 rounded-full transition-all duration-300"
+      :class="{
+        'bg-blue-400 animate-pulse': bluetoothState.enabled && bluetoothState.connected_devices.length > 0,
+        'bg-blue-400': bluetoothState.enabled && bluetoothState.connected_devices.length === 0,
+        'bg-gray-400': !bluetoothState.enabled
+      }">
+    </div>
+    
+    <!-- Connected devices count -->
+    <div v-if="bluetoothState.enabled && bluetoothState.connected_devices.length > 0" 
+      class="absolute bottom-1 right-1 bg-blue-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold animate-bounce">
+      {{ bluetoothState.connected_devices.length }}
+    </div>
+    
+    <!-- Bluetooth waves animation when enabled -->
+    <div v-if="bluetoothState.enabled" class="absolute inset-0 flex items-center justify-center">
+      <div class="absolute w-8 h-8 border-2 border-blue-400/30 rounded-full animate-ping"></div>
+      <div class="absolute w-12 h-12 border-2 border-blue-400/20 rounded-full animate-ping" style="animation-delay: 0.5s;"></div>
+    </div>
+    
     <img
       :src="bluetoothIcon"
       :alt="bluetoothAlt"
-      class="m-auto w-[50px] h-[50px]"
+      class="m-auto w-[50px] h-[50px] transition-all duration-300 group-hover:scale-110 relative z-10"
+      :class="{ 
+        'animate-spin': isLoading,
+        'filter brightness-75': !bluetoothState.enabled,
+        'drop-shadow-lg': bluetoothState.enabled 
+      }"
     />
   </button>
 </template>
