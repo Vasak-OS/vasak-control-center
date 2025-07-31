@@ -28,11 +28,11 @@ onMounted(async() => {
       <UserProfile />
       <NotificationCenter />
     </div>
-    <div class="flex flex-wrap w-full justify-around items-end p-2">
+    <div class="flex flex-wrap w-full justify-around items-end self-end p-2">
       <NetworkControl />
       <BluetoothControl />
       <ThemeToggle />
-      <div class="flex flex-col gap-2 w-full max-w-xs">
+      <div class="flex flex-col gap-2 w-full mt-4">
         <BrightnessControl />
         <VolumeControl />
       </div>
